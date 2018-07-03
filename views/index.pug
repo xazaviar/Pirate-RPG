@@ -1,0 +1,19 @@
+doctype html
+
+html
+  head
+    title Testing Game!
+    link(rel='stylesheet', href='/public/css/main.css')
+    script(src='/socket.io/socket.io.js')
+    script(src='/public/js/jquery-3.1.1.min.js')
+    script(src='/shared/SAT.js')
+    script(src='/shared/Util.js')
+    script(src='/public/js/game/Drawing.js')
+    script(src='/public/js/game/Game.js')
+    script(src='/public/js/game/Input.js')
+    script(src='/public/js/game/Sound.js')
+    script(src='/public/js/client.js')
+  body
+    div(id="gameArea")
+      canvas(id='canvas')
+  

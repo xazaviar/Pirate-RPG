@@ -1,0 +1,30 @@
+[
+{
+	"name": "Fists",
+	"type": "CombatMain",
+	"tiers": [
+		[{"id":0,"levels":5},{"id":1,"levels":5},{"id":2,"levels":5}],
+		[{"id":3,"levels":5},{"id":5,"levels":3},{"id":6,"levels":3},{"id":7,"levels":1}],
+		[{"id":8,"levels":5}],
+		[],
+		[]
+	],
+	"baseSpeed": 100,
+	"baseAttack": 5,
+	"baseBlockingForce": 100
+},
+{
+	"name": "Kicks",
+	"type": "CombatMain",
+	"tiers": [
+		[{"id":19,"levels":5},{"id":20,"levels":5},{"id":21,"levels":5}],
+		[{"id":22,"levels":5},{"id":23,"levels":5},{"id":25,"levels":5}],
+		[],
+		[],
+		[]
+	],
+	"baseSpeed": 120,
+	"baseAttack": 10,
+	"baseBlockingForce": 130
+}
+]

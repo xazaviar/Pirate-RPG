@@ -1,0 +1,21 @@
+{
+  "name": "Pirate RPG",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {},
+  "repository": {},
+  "author": {
+    "name": "Joseph Ryan"
+  },
+  "license": "",
+  "bugs": {},
+  "dependencies": {
+    "express": "^4.14.1",
+    "hashmap": "^2.0.6",
+    "jsonfile": "^4.0.0",
+    "morgan": "^1.8.1",
+    "pug": "^2.0.0-beta11",
+    "socket.io": "^1.7.2"
+  }
+}

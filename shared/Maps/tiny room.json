@@ -1,0 +1,120 @@
+{ "height":10,
+ "infinite":false,
+ "isPrivate": true,
+ "isSpawn": true,
+ "spawnCoords": {"x":65,"y":65},
+ "layers":[
+        {
+         "data":[163, 163, 163, 163, 163, 163, 163, 163, 163, 203, 203, 203, 203, 203, 203, 203, 203, 203, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 41, 1, 1, 1, 1],
+         "height":10,
+         "name":"Tile Layer 1",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":9,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 201, 0, 7, 0, 201, 0, 0, 0, 0, 241, 0, 47, 0, 241, 0, 0, 0, 0, 0, 0, 87, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 127, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 166, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 166, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":10,
+         "name":"Tile Layer 2",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":9,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "name":"Object Layer 1",
+         "objects":[
+                {
+                 "height":30.3333333333333,
+                 "id":1,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":144,
+                 "x":0.333333333333333,
+                 "y":0
+                }, 
+                {
+                 "height":12.6666666666667,
+                 "id":2,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":64.3333333333333,
+                 "y":28.6666666666667
+                }, 
+                {
+                 "height":12.3333333333333,
+                 "id":3,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":15.3333333333333,
+                 "x":112.666666666667,
+                 "y":113.333333333333
+                }, 
+                {
+                 "height":11.6666666666667,
+                 "id":4,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":14.6666666666667,
+                 "x":16.6666666666667,
+                 "y":81.6666666666667
+                }, 
+                {
+                 "height":4,
+                 "id":5,
+                 "name":"exit",
+                 "properties":
+                    {
+                     "entry_map_id":0,
+                     "spawn":[{"x":752,"y":66}],
+                     "saveExit": false,
+                     "useExit": false 
+                    },
+                 "propertytypes":
+                    {
+                     "entry_map_id":"int",
+                     "spawn":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":64,
+                 "y":156
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }],
+ "nextobjectid":8,
+ "orientation":"orthogonal",
+ "renderorder":"right-down",
+ "tiledversion":"1.1.5",
+ "tileheight":16,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "source":"cave.tsx"
+        }],
+ "tilewidth":16,
+ "type":"map",
+ "version":1,
+ "width":9
+}

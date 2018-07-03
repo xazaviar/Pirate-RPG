@@ -1,0 +1,312 @@
+[
+{	"id": 0,
+	"name": "Fast Punch",
+	"type": "attack",
+	"subtype": "light",
+	"desc": "Standard fast attack",
+	"prereq": [],
+	"base":{
+		"name": "Fast Punch",
+		"energyUsage": 2,
+		"orientationLock": true,
+		"movementLock": false,
+		"specialMovement": null,
+
+		"sequence": [[
+			{
+				"weapon": "punch",
+				"damage": 1.0,
+				"cooldown": 10,
+				"attackForce": 25,
+				"knockback": 0,
+				"size": {"wid":8,"hei":20},
+				"motion": {
+					"type": "jab",
+					"speedF": 200,
+					"speedB": 160,
+					"range": 20,
+					"angle": 0
+				}
+			}
+		]]
+	},
+	"increase":{
+		"energyUsage": -0.4,
+		"cooldown": -0.6,
+		"damage": 0.02
+	}
+},
+{	"id": 1,
+	"name": "Strong Punch",
+	"type": "attack",
+	"subtype": "heavy",
+	"desc": "Standard strong attack",
+	"prereq": [],
+	"base":{
+		"name": "Strong Punch",
+		"energyUsage": 5,
+		"orientationLock": true,
+		"movementLock": false,
+		"specialMovement": null,
+
+		"sequence": [[
+			{
+				"weapon": "punch",
+				"damage": 1.3,
+				"cooldown": 16,
+				"attackForce": 25,
+				"knockback": 0,
+				"size": {"wid":8,"hei":20},
+				"motion": {
+					"type": "jab",
+					"speedF": 200,
+					"speedB": 160,
+					"range": 20,
+					"angle": 0
+				}
+			}
+		]]
+	},
+	"increase":{
+		"energyUsage": -1,
+		"cooldown": -0.8,
+		"damage": 0.02
+	}
+},
+{	"id": 2,
+	"name": "Uppercut",
+	"type": "combo",
+	"subtype": null,
+	"desc": "Strong attack combo that lunges forward",
+	"prereq": [],
+	"base": 0,
+	"increase":{
+		"energyUsage": -1,
+		"damage": 0.04
+	}
+},
+{	"id": 3,
+	"name": "Quick Punch",
+	"type": "combo",
+	"subtype": null,
+	"desc": "Fast attack combo",
+	"prereq": [],
+	"base": 1,
+	"increase":{
+		"energyUsage": -1,
+		"damage": 0.02
+	}
+},
+{	"id": 5,
+	"name": "Boxer's Stance",
+	"type": "active",
+	"subtype": "aura",
+	"desc": "Stance focused on hard hits and good defense. Decreased max energy, but increased heavy attack, combo damage, and blocking power.",
+	"prereq": [],
+	"base": {
+		"energyMax": -40,
+		"blockPower": 40,
+		"hAtk": 0.02,
+		"cAtk": 0.02
+	},
+	"increase":{
+		"energyMax": 5,
+		"hAtk": 0.02,
+		"cAtk": 0.02
+	}
+},
+{	"id": 6,
+	"name": "True Unarmed",
+	"type": "passive",
+	"subtype": null,
+	"desc": "When unarmed speed, dodge chance, and damage are increased.",
+	"prereq": [],
+	"base": {
+		"damage": 0.01,
+		"speed": 0.1,
+		"dodgeChance": 0.05
+	},
+	"increase":{
+		"damage": 0.01,
+		"speed": 0.05,
+		"dodgeChance": 0.05
+	}
+},
+{	"id": 7,
+	"name": "Warm up",
+	"type": "active",
+	"subtype": null,
+	"desc": "Applies the warm up buff, which increases damage and speed. It also slightly increases cold resistance.",
+	"prereq": [],
+	"base": {
+		"energyUsage": 35,
+		"buffs":[0]
+	},
+	"increase": null
+},
+{	"id": 12,
+	"name": "Quick Punch Finisher",
+	"type": "combo",
+	"subtype": "upgrade",
+	"desc": "Add a finishing move to quick punch that launches the target",
+	"prereq": [3],
+	"base": {
+		"input":"L","end":true,"attack":{
+								"name": "Finsher",
+								"energyUsage": 20,
+								"orientationLock": true,
+								"movementLock": true,
+								"specialMovement": null,
+
+								"sequence": [[
+									{
+										"weapon": "punch",
+										"damage": 1.5,
+										"cooldown": 30,
+										"attackForce": 45,
+										"knockback": 120,
+										"size": {"wid":8,"hei":20},
+										"motion": {
+											"type": "jab",
+											"speedF": 300,
+											"speedB": 250,
+											"range": 22,
+											"angle": -5 
+										}
+									}
+								]]			
+		}
+	},
+	"increase":{
+		"cooldown": -2,
+		"energyUsage": -1,
+		"damage": 0.05
+	}
+},
+{	"id": 19,
+	"name": "Fast Kick",
+	"type": "attack",
+	"subtype": "light",
+	"desc": "Standard fast attack",
+	"prereq": [],
+	"base":{
+		"name": "Fast Kick",
+		"energyUsage": 5,
+		"orientationLock": true,
+		"movementLock": false,
+		"specialMovement": null,
+
+		"sequence": [[
+			{
+				"weapon": "kick",
+				"damage": 1.0,
+				"cooldown": 16,
+				"attackForce": 50,
+				"knockback": 0,
+				"size": {"wid":8,"hei":20},
+				"motion": {
+					"type": "jab",
+					"speedF": 180,
+					"speedB": 120,
+					"range": 20,
+					"angle": 0
+				}
+			}
+		]]
+	},
+	"increase":{
+		"energyUsage": -0.4,
+		"cooldown": -0.6,
+		"damage": 0.02
+	}
+},
+{	"id": 20,
+	"name": "Strong Kick",
+	"type": "attack",
+	"subtype": "heavy",
+	"desc": "Standard strong attack",
+	"prereq": [],
+	"base":{
+		"name": "Strong Kick",
+		"energyUsage": 15,
+		"orientationLock": true,
+		"movementLock": false,
+		"specialMovement": null,
+
+		"sequence": [[
+			{
+				"weapon": "kick",
+				"damage": 1.3,
+				"cooldown": 24,
+				"attackForce": 90,
+				"knockback": 5,
+				"size": {"wid":8,"hei":20},
+				"motion": {
+					"type": "sweep",
+					"speed":400,
+					"start":-60,
+					"dist": 120,
+					"direction": "right"
+				}
+			}
+		]]
+	},
+	"increase":{
+		"energyUsage": -1,
+		"cooldown": -0.8,
+		"damage": 0.02
+	}
+},
+{	"id": 21,
+	"name": "Parage Shot",
+	"type": "combo",
+	"subtype": null,
+	"desc": "Stationary fast combo attack",
+	"prereq": [],
+	"base": 3,
+	"increase":{
+		"energyUsage": -1,
+		"damage": 0.04
+	}
+},
+{	"id": 22,
+	"name": "Tornado",
+	"type": "combo",
+	"subtype": null,
+	"desc": "Strong combo attack",
+	"prereq": [],
+	"base": 2,
+	"increase":{
+		"energyUsage": -1,
+		"damage": 0.04
+	}
+},
+{	"id": 23,
+	"name": "Strengthen Legs",
+	"type": "passive",
+	"subtype": null,
+	"desc": "Increases damage done by kicks.",
+	"prereq": [],
+	"base": {
+		"damage": 0.04
+	},
+	"increase":{
+		"damage": 0.04
+	}
+},
+{	"id": 25,
+	"name": "Break",
+	"type": "active",
+	"subtype": null,
+	"desc": "Player can now break the target's ribs, increasing the damage dealt to the target",
+	"prereq": [],
+	"base": {
+		"energyUsage": 25,
+		"buffs":[1]
+	},
+	"increase":{
+		"energyUsage": -2,
+		"duration": 2
+	}
+}
+]
