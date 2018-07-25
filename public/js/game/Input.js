@@ -8,19 +8,19 @@ function Input() {
 }
 Input.LAST_INPUT_RECEIVED = new Date();
 
-Input.LEFT_CLICK = false;
+Input.LEFT_CLICK  = false;
 Input.RIGHT_CLICK = false;
-Input.MOUSE = [0, 0];
+Input.MOUSE       = [0, 0];
 
-Input.LEFT = false;
-Input.UP = false;
-Input.RIGHT = false;
-Input.DOWN = false;
-Input.SWITCH = false;
-Input.DODGE = false;
-Input.BLOCK = false;
-Input.RESPAWN = false;
-Input.MISC_KEYS = {};
+Input.LEFT        = false;
+Input.UP          = false;
+Input.RIGHT       = false;
+Input.DOWN        = false;
+Input.DODGE       = false;
+Input.BLOCK       = false;
+Input.RESPAWN     = false;
+Input.MENU        = false
+Input.MISC_KEYS   = {};
 
 /**
  * This method is a callback bound to the onmousedown event
@@ -77,14 +77,14 @@ Input.onKeyDown = function(event) {
     case 83:
       Input.DOWN = true;
       break;
-    case 187:
-      Input.SWITCH = true;
-      break;
     case 32:
       Input.DODGE = true;
       break;
     case 48:
       Input.RESPAWN = true;
+      break;
+    case 27:
+      Input.MENU = true;
       break;
     default:
       Input.MISC_KEYS[event.keyCode] = true;
@@ -116,14 +116,14 @@ Input.onKeyUp = function(event) {
     case 83:
       Input.DOWN = false;
       break;
-    case 187:
-      Input.SWITCH = false;
-      break;
     case 32:
       Input.DODGE = false;
       break;
     case 48:
       Input.RESPAWN = false;
+      break;
+    case 27:
+      Input.MENU = false;
       break;
     default:
       Input.MISC_KEYS[event.keyCode] = false;

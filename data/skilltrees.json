@@ -2,29 +2,100 @@
 {
 	"name": "Fists",
 	"type": "CombatMain",
+	"desc": "For those that want to take things into their own hands (literally). This skill tree is focuses on fast attacks and movement. Although the combos are short, they are quick and aggressive. This skill tree has the shortest range of attacks, so the user will need to up close and personal with their targets.",
 	"tiers": [
-		[{"id":0,"levels":5},{"id":1,"levels":5},{"id":2,"levels":5}],
-		[{"id":3,"levels":5},{"id":5,"levels":3},{"id":6,"levels":3},{"id":7,"levels":1}],
-		[{"id":8,"levels":5}],
-		[],
+		[{"id":0,"maxLevels":5,"level":1},{"id":1,"maxLevels":5,"level":1},{"id":2,"maxLevels":5,"level":0}],
+		[{"id":3,"maxLevels":5,"level":0},{"id":5,"maxLevels":3,"level":0},{"id":6,"maxLevels":3,"level":0},{"id":7,"maxLevels":1,"level":0}],
+		[{"id":8,"maxLevels":5,"level":0}],
+		[{"id":14,"maxLevels":5,"level":0}],
 		[]
 	],
 	"baseSpeed": 100,
-	"baseAttack": 5,
+	"baseDamage": 5,
 	"baseBlockingForce": 100
 },
 {
 	"name": "Kicks",
 	"type": "CombatMain",
+	"desc": "For those that want to do devastating amounts of damage without getting their hands dirty. This skill tree focuses on strong attacks and mobility. There is not much comboing, but this skill tree's normal attacks are strong and         quick.",
 	"tiers": [
-		[{"id":19,"levels":5},{"id":20,"levels":5},{"id":21,"levels":5}],
-		[{"id":22,"levels":5},{"id":23,"levels":5},{"id":25,"levels":5}],
+		[{"id":19,"maxLevels":5,"level":1},{"id":20,"maxLevels":5,"level":1},{"id":21,"maxLevels":5,"level":0}],
+		[{"id":22,"maxLevels":5,"level":0},{"id":23,"maxLevels":5,"level":0},{"id":25,"maxLevels":5,"level":0}],
 		[],
 		[],
 		[]
 	],
 	"baseSpeed": 120,
-	"baseAttack": 10,
+	"baseDamage": 10,
 	"baseBlockingForce": 130
+},
+{
+	"name": "Mixed",
+	"type": "CombatMain",
+	"desc": "",
+	"tiers": [
+		[],
+		[],
+		[],
+		[],
+		[]
+	],
+	"baseSpeed": 100,
+	"baseDamage": 7,
+	"baseBlockingForce": 100
+},
+{
+	"name": "Swords",
+	"type": "CombatMain",
+	"desc": "",
+	"tiers": [
+		[],
+		[],
+		[],
+		[],
+		[]
+	],
+	"baseSpeed": 70,
+	"baseDamage": 20,
+	"baseBlockingForce": 180
+},
+{
+	"name": "Ranged",
+	"type": "CombatMain",
+	"desc": "",
+	"tiers": [
+		[],
+		[],
+		[],
+		[],
+		[]
+	],
+	"baseSpeed": 90,
+	"baseDamage": 10,
+	"baseBlockingForce": 50
+},
+{
+	"name": "Durability",
+	"type": "CombatAdd",
+	"desc": "For those that want to be unkillable or close to it. This skill tree focuses on health and defense; increasing the users ability to survive massive attacks.",
+	"tiers": [
+		[],
+		[],
+		[],
+		[],
+		[]
+	]
+},
+{
+	"name": "Mobility",
+	"type": "CombatAdd",
+	"desc": "",
+	"tiers": [
+		[],
+		[],
+		[],
+		[],
+		[]
+	]
 }
 ]

@@ -1,4 +1,4 @@
-[
+[ 
 {   "id":0,
 	"name":"Uppercut",
 	"steps":[
@@ -6,6 +6,7 @@
 	  	{"input":"L","end":false,"attack":null},
 	  	{"input":"H","end":true, "attack":{
 								"name": "Uppercut",
+								"type": "combo",
 								"energyUsage": 15,
 								"orientationLock": true,
 								"movementLock": true,
@@ -48,6 +49,7 @@
 	  	{"input":"L","end":false,"attack":null},
 	  	{"input":"L","end":true,"attack":{
 								"name": "Quick Attack",
+								"type": "combo",
 								"energyUsage": 15,
 								"orientationLock": true,
 								"movementLock": true,
@@ -261,7 +263,7 @@
 									{
 										"weapon": "punch",
 										"damage": 0.5,
-										"cooldown": 20,
+										"cooldown": 4,
 										"attackForce": 45,
 										"knockback": 1,
 										"size": {"wid":8,"hei":20},
@@ -301,33 +303,13 @@
 	"steps":[
 	 	{"input":"H","end":false,"attack":null},
 	  	{"input":"H","end":false,"attack":{
-								"name": "Heavy Attack",
-								"energyUsage": 15,
-								"orientationLock": true,
-								"movementLock": true,
-								"specialMovement": null,
-
-								"sequence": [[
-									{
-										"weapon": "kick",
-										"damage": 1.5,
-										"cooldown": 24,
-										"attackForce": 90,
-										"knockback": 5,
-										"size": {"wid":8,"hei":25},
-										"motion": {
-											"type": "sweep",
-											"speed":400,
-											"start": 60,
-											"dist": 120,
-											"direction": "left"
-										}
-									}
-								]]
+								"type": "heavy",
+								"action": "reverse"
 							}
 		},
 	  	{"input":"H","end":true,"attack":{
 								"name": "Tornado",
+								"type": "combo",
 								"energyUsage": 25,
 								"orientationLock": true,
 								"movementLock": true,
@@ -491,29 +473,8 @@
 	"steps":[
 	 	{"input":"H","end":false,"attack":null},
 	  	{"input":"H","end":false,"attack":{
-								"name": "Heavy Attack",
-								"energyUsage": 25,
-								"orientationLock": true,
-								"movementLock": false,
-								"specialMovement": null,
-								
-								"sequence": [[
-									{
-										"weapon": "sword",
-										"damage": 1.5,
-										"cooldown": 35,
-										"attackForce": 130,
-										"knockback": 5,
-										"size": {"wid":9,"hei":40},
-										"motion": {
-											"type": "sweep",
-											"speed":200 ,
-											"start": 60 ,
-											"dist": 120 ,
-											"direction": "left"
-										}
-									}
-								]]
+								"type": "heavy",
+								"action": "reverse"
 							}
 		},
 	  	{"input":"L","end":true,"attack":{
@@ -556,29 +517,8 @@
 	"steps":[
 	 	{"input":"L","end":false,"attack":null},
 	  	{"input":"L","end":false,"attack":{
-								"name": "Light Attack",
-								"energyUsage": 13,
-								"orientationLock": true,
-								"movementLock": false,
-								"specialMovement": null,
-
-								"sequence": [[
-									{
-										"weapon": "sword",
-										"damage": 1.0,
-										"cooldown": 24,
-										"attackForce": 100,
-										"knockback": 5,
-										"size": {"wid":9,"hei":40},
-										"motion": {
-											"type": "sweep",
-											"speed":350 ,
-											"start":-75 ,
-											"dist": 150 ,
-											"direction": "right"
-										}
-									}
-								]]
+								"type": "light",
+								"action": "reverse"
 							}
 		},
 	  	{"input":"L","end":false,"attack":null},

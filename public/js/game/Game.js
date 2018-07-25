@@ -14,6 +14,16 @@ function Game(socket, drawing) {
     this.animationFrameId = 0;
     this.MAX_IDLE_TIME = 10; //In Minutes
     this.isGettingData = true;
+    this.menuOpen = false;
+    this.menuLastState = false;
+    this.firstData = true;
+    this.switchTree = -1;
+    this.applySP = null;
+
+    //FPS tracking
+    this.fps = 0;
+    this.prevTime = -1;
+    this.frames = 0;
 
     this.map = {};
 }
@@ -38,6 +48,7 @@ Game.create = function(socket, canvasElement) {
  */
 Game.prototype.init = function() {
     var context = this;
+
     this.socket.on('update', function(data) {
         context.receiveGameState(data);
     });
@@ -76,6 +87,12 @@ Game.prototype.receiveGameState = function(state) {
     this.selfPlayer   = state['self'];
     this.otherPlayers = state['players'];
     this.attacks      = state['attacks'];
+
+
+    if(this.firstData && this.selfPlayer){
+        this.firstData = false;
+        this.drawing.loadSkillImages(this.selfPlayer.skillTrees);
+    }
 };
 
 /**
@@ -83,31 +100,40 @@ Game.prototype.receiveGameState = function(state) {
  * server.
  */
 Game.prototype.update = function() {
+    if(Input.MENU && !this.menuLastState)
+        this.menuOpen = !this.menuOpen;
+    this.menuLastState = Input.MENU;
+
     if (this.selfPlayer && this.isGettingData) {
         // Emits an event for the containing the player's input.
-        // var mX = Input.MOUSE[0]/this.drawing.scale - window.innerWidth/2/this.drawing.scale + this.selfPlayer.x;
-        // var mY = Input.MOUSE[1]/this.drawing.scale - window.innerHeight/2/this.drawing.scale + this.selfPlayer.y;
         var mouse = this.calculateMouseCoords(Input.MOUSE[0],Input.MOUSE[1],this.selfPlayer.x,this.selfPlayer.y,this.drawing.scale);
+
 
         this.socket.emit('player-action', {
             keyboardState: {
-                left: Input.LEFT,
-                right: Input.RIGHT,
-                up: Input.UP,
-                down: Input.DOWN,
-                switch: Input.SWITCH,
-                dodge: Input.DODGE,
-                block: Input.BLOCK,
-                respawn: Input.RESPAWN
+                left:       Input.LEFT,
+                right:      Input.RIGHT,
+                up:         Input.UP,
+                down:       Input.DOWN,
+                dodge:      Input.DODGE,
+                block:      Input.BLOCK,
+                respawn:    Input.RESPAWN
+            },
+            menuState: {
+                menuOpen:   this.menuOpen,
+                switchTree: this.switchTree,
+                applySP:    this.applySP
             },
             mouseState: {
-                x: mouse.x,
-                y: mouse.y,
-                left: Input.LEFT_CLICK,
-                right: Input.RIGHT_CLICK
+                x:          mouse.x,
+                y:          mouse.y,
+                left:       Input.LEFT_CLICK,
+                right:      Input.RIGHT_CLICK
             }
         });
         this.correctPosition(this.selfPlayer);
+        this.switchTree = -1;
+        this.applySP = null;
         this.draw();
 
         //Check if need to shut down
@@ -118,6 +144,14 @@ Game.prototype.update = function() {
             this.socket.close();
             this.isGettingData = false;
             this.draw();
+        }
+
+        const time = performance.now();
+        this.frames++;
+        if(time > this.prevTime+1000){
+            this.fps = Math.round((this.frames*1000)/(time-this.prevTime));
+            this.prevTime = time;
+            this.frames = 0;
         }
     }
     this.animate();
@@ -142,8 +176,7 @@ Game.prototype.draw = function() {
     //Draw map background
     this.drawing.drawMap(this.map, this.selfPlayer.x, this.selfPlayer.y, this.selfPlayer.hitbox,1);
 
-    // console.log(this.map);
-
+    //Draw attacks
     for (var attack of this.attacks) {
         this.drawing.drawAttack(
             this.selfPlayer.x, 
@@ -157,9 +190,8 @@ Game.prototype.draw = function() {
             this.map
         );
     }
-    // this.drawing.drawGrid(this.selfPlayer.x, this.selfPlayer.y, this.map.width,this.map.height, this.map.tilesize);
 
-    // Draw yourself
+    //Draw player
     if(!this.selfPlayer.isDead){
         this.drawing.drawSelf(
             this.selfPlayer.x,
@@ -172,9 +204,8 @@ Game.prototype.draw = function() {
         );
     }
 
-    // console.log(this.selfPlayer)
 
-    // Draw the other players
+    //Draw the other players
     for (var player of this.otherPlayers) {
         if(!player.isDead){
             this.drawing.drawOther(
@@ -194,23 +225,25 @@ Game.prototype.draw = function() {
 
     //Draw map foreground
     this.drawing.drawMap(this.map, this.selfPlayer.x, this.selfPlayer.y, this.selfPlayer.hitbox,2);
-    // this.drawing.drawObjects(this.selfPlayer.x, this.selfPlayer.y, this.map.width,this.map.height, this.map.objects);
-
+    
     //Draw Info
     var left = 100;
     var down = 0;
-    this.drawing.drawText("screen: "+parseInt(window.innerWidth)+","+parseInt(window.innerHeight),  $("#canvas").width()-left,down+=10);
-    this.drawing.drawText("player: "+parseInt(this.selfPlayer.x)+","+parseInt(this.selfPlayer.y),   $("#canvas").width()-left,down+=10);
-    this.drawing.drawText("raw m : "+parseInt(Input.MOUSE[0])+","+parseInt(Input.MOUSE[1]),         $("#canvas").width()-left,down+=10);
-    this.drawing.drawText("mouse : "+parseInt(mouse.x)+","+parseInt(mouse.y),                       $("#canvas").width()-left,down+=10);
-    this.drawing.drawText("angle : "+parseInt(angle*180/Math.PI),                                   $("#canvas").width()-left,down+=10);
-    this.drawing.drawText("weapon: "+this.selfPlayer.weapon.combatStyle[this.selfPlayer.weapon.weapIndex].type, $("#canvas").width()-left,down+=10);
+    this.drawing.drawText("FPS   : "+this.fps,                                               $("#canvas").width()-left,down+=10);
+    // this.drawing.drawText("screen: "+parseInt(window.innerWidth)+","+parseInt(window.innerHeight),  $("#canvas").width()-left,down+=10);
+    // this.drawing.drawText("player: "+parseInt(this.selfPlayer.x)+","+parseInt(this.selfPlayer.y),   $("#canvas").width()-left,down+=10);
+    // this.drawing.drawText("raw m : "+parseInt(Input.MOUSE[0])+","+parseInt(Input.MOUSE[1]),         $("#canvas").width()-left,down+=10);
+    // this.drawing.drawText("mouse : "+parseInt(mouse.x)+","+parseInt(mouse.y),                       $("#canvas").width()-left,down+=10);
+    // this.drawing.drawText("angle : "+parseInt(angle*180/Math.PI),                                   $("#canvas").width()-left,down+=10);
+    this.drawing.drawText("weapon: "+this.selfPlayer.skillTrees[this.selfPlayer.selectedCombatTree].name, $("#canvas").width()-left,down+=10);
     this.drawing.drawText("D/Ced?: "+!this.isGettingData,                                           $("#canvas").width()-left,down+=10);
-    this.drawing.drawText("ComboQ: "+this.selfPlayer.comboQueue,                                    $("#canvas").width()-left,down+=10);
-    this.drawing.drawText("Atk C : "+this.selfPlayer.attackCooldown,                                $("#canvas").width()-left,down+=10);
-    this.drawing.drawText("Water : "+this.selfPlayer.inWater,                                       $("#canvas").width()-left,down+=10);
-    this.drawing.drawText("movin : "+this.selfPlayer.isMoving,                                      $("#canvas").width()-left,down+=10);
-    this.drawing.drawText("Spawn : "+this.selfPlayer.spawn.id+" ["+this.selfPlayer.spawn.loc.x+","+this.selfPlayer.spawn.loc.y+"]",$("#canvas").width()-left,down+=10);
+    // this.drawing.drawText("ComboQ: "+this.selfPlayer.comboQueue,                                    $("#canvas").width()-left,down+=10);
+    // this.drawing.drawText("Atk C : "+this.selfPlayer.attackCooldown,                                $("#canvas").width()-left,down+=10);
+    // this.drawing.drawText("Water : "+this.selfPlayer.inWater,                                       $("#canvas").width()-left,down+=10);
+    // this.drawing.drawText("movin : "+this.selfPlayer.isMoving,                                      $("#canvas").width()-left,down+=10);
+    // this.drawing.drawText("Spawn : "+this.selfPlayer.spawn.id+" ["+this.selfPlayer.spawn.loc.x+","+this.selfPlayer.spawn.loc.y+"]",$("#canvas").width()-left,down+=10);
+    this.drawing.drawText("inMenu: "+this.menuOpen,                                                 $("#canvas").width()-left,down+=10);
+    // this.drawing.drawText("Switch: "+this.switchTree,                                               $("#canvas").width()-left,down+=10);
 
     
     //Draw UI
@@ -218,6 +251,17 @@ Game.prototype.draw = function() {
                         this.selfPlayer.hpMax,
                         this.selfPlayer.energy,
                         this.selfPlayer.energyMax);
+
+
+    if(this.menuOpen){
+        var actions = this.drawing.drawMenu(this.selfPlayer, Input.MOUSE, Input.LEFT_CLICK);
+
+        //Probably will only be one or none
+        for(var a in actions){
+            if(actions[a].type=="switchTree") this.switchTree = actions[a].value;
+            if(actions[a].type=="applySP") this.applySP = {skill:actions[a].skill,tree:actions[a].tree};
+        }
+    }
 };
 
 

@@ -1,0 +1,12 @@
+{
+	"spawn": 1,
+	"list":[
+		{"id": 0, "name":"arena",      "private":false,      "spawn": null},       
+		{"id": 1, "name":"entry",      "private":true,       "spawn": {"x":100,"y":100}},  
+		{"id": 2, "name":"landing",    "private":true,       "spawn": {"x":100,"y":100}},  
+		{"id": 3, "name":"pathway",    "private":true,       "spawn": null},           
+		{"id": 4, "name":"cave",       "private":false,      "spawn": null},           
+		{"id": 5, "name":"the pit",    "private":false,      "spawn": null},           
+		{"id": 6, "name":"tiny room",  "private":true,       "spawn": {"x":65,"y":65}}
+	]
+}
