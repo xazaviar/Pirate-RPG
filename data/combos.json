@@ -127,6 +127,380 @@
 									{
 										"weapon": "punch",
 										"damage": 0.5,
+										"cooldown": 10,
+										"attackForce": 45,
+										"knockback": 1,
+										"size": {"wid":8,"hei":20},
+										"motion": {
+											"type": "jab",
+											"speedF": 300,
+											"speedB": 250,
+											"range": 22,
+											"angle": 0
+										}
+									}
+								]
+								]
+							}
+		}
+		]
+},	
+{	"id": 2,
+	"name":"Tornado",
+	"steps":[
+	 	{"input":"H","end":false,"attack":null},
+	  	{"input":"H","end":false,"attack":{
+								"type": "heavy",
+								"action": "reverse"
+							}
+		},
+	  	{"input":"H","end":true,"attack":{
+								"name": "Tornado",
+								"type": "combo",
+								"energyUsage": 25,
+								"orientationLock": true,
+								"movementLock": true,
+								"specialMovement": {
+									"mSpeed": 0,
+									"mDirection": "forward",
+									"distance": 0,
+									"rSpeed": 80 ,
+									"rDirection": "right",
+									"rotation": 96
+								},
+
+								"sequence": [[
+									{
+										"weapon": "kick",
+										"damage": 1.5,
+										"cooldown": 70,
+										"attackForce": 120,
+										"knockback": 1,
+										"size": {"wid":8,"hei":25},
+										"motion": {
+											"type": "sweep",
+											"speed":600 ,
+											"start":  0 ,
+											"dist": 720 ,
+											"direction": "right"
+										}
+									},
+									{
+										"weapon": "kick",
+										"damage": 1.5,
+										"cooldown": 1,
+										"attackForce": 120,
+										"knockback": 0,
+										"size": {"wid":8,"hei":25},
+										"motion": {
+											"type": "sweep",
+											"speed":600 ,
+											"start":180 ,
+											"dist": 720 ,
+											"direction": "right"
+										}
+									}
+								]]
+							}
+	  	}
+	  	]
+},
+{	"id": 3,
+	"name":"Parage Shot",
+	"steps":[
+	 	{"input":"L","end":false,"attack":null},
+	  	{"input":"L","end":false,"attack":null},
+	  	{"input":"L","end":false,"attack":null},
+	  	{"input":"L","end":true,"attack":{
+								"name": "Parage Shot",
+								"type": "combo",
+								"energyUsage": 15,
+								"orientationLock": true,
+								"movementLock": true,
+								"specialMovement": {
+									"mSpeed": 150,
+									"mDirection": "forward",
+									"distance": 100,
+									"rSpeed": 0 ,
+									"rDirection": "left",
+									"rotation": 0
+								},
+
+								"sequence": [[
+									{
+										"weapon": "kick",
+										"damage": 1.1,
+										"cooldown": 10,
+										"attackForce": 60,
+										"knockback": 50,
+										"size": {"wid":8,"hei":25},
+										"motion": {
+											"type": "jab",
+											"speedF": 240,
+											"speedB": 180,
+											"range": 20,
+											"angle": 0 
+										}
+									}
+								],
+								[
+									{
+										"weapon": "kick",
+										"damage": 1.1,
+										"cooldown": 10,
+										"attackForce": 60,
+										"knockback": 50,
+										"size": {"wid":8,"hei":25},
+										"motion": {
+											"type": "jab",
+											"speedF": 240,
+											"speedB": 180,
+											"range": 20,
+											"angle": 0 
+										}
+									}
+								],
+								[
+									{
+										"weapon": "kick",
+										"damage": 1.1,
+										"cooldown": 10,
+										"attackForce": 60,
+										"knockback": 50,
+										"size": {"wid":8,"hei":25},
+										"motion": {
+											"type": "jab",
+											"speedF": 240,
+											"speedB": 180,
+											"range": 20,
+											"angle": 0 
+										}
+									}
+								],
+								[
+									{
+										"weapon": "kick",
+										"damage": 1.1,
+										"cooldown": 30,
+										"attackForce": 60,
+										"knockback": 0,
+										"size": {"wid":8,"hei":25},
+										"motion": {
+											"type": "jab",
+											"speedF": 240,
+											"speedB": 100,
+											"range": 20,
+											"angle": 0 
+										}
+									}
+								],
+								[
+									{
+										"weapon": "kick",
+										"damage": 1.8,
+										"cooldown": 40,
+										"attackForce": 60,
+										"knockback": 150,
+										"size": {"wid":8,"hei":25},
+										"motion": {
+											"type": "jab",
+											"speedF": 400,
+											"speedB": 50,
+											"range": 20,
+											"angle": 0 
+										}
+									}
+								]
+								]
+							}
+		}
+		]
+},
+{	"id": 4,
+	"name":"Charge",
+	"steps":[
+	 	{"input":"H","end":false,"attack":null},
+	  	{"input":"H","end":false,"attack":{
+								"type": "heavy",
+								"action": "reverse"
+							}
+		},
+	  	{"input":"L","end":true,"attack":{
+	  							"name": "Charge",
+								"type": "combo",
+								"energyUsage": 25,
+								"orientationLock": true,
+								"movementLock": false,
+								"specialMovement": {
+									"mSpeed": 400,
+									"mDirection": "forward",
+									"distance": 200,
+									"rSpeed": 0 ,
+									"rDirection": "left",
+									"rotation": 0
+								},
+								
+								"sequence": [[
+									{
+										"weapon": "sword",
+										"damage": 2.5,
+										"cooldown": 40,
+										"attackForce": 200,
+										"knockback": 130,
+										"size": {"wid":9,"hei":40},
+										"motion": {
+											"type": "jab",
+											"speedF": 400,
+											"speedB": 60,
+											"range": 25,
+											"angle": 0 
+										}
+									}
+								]]
+							}
+		}
+		]
+},
+{	"id": 5,
+	"name":"Pound Cannon",
+	"steps":[
+	 	{"input":"L","end":false,"attack":null},
+	  	{"input":"L","end":false,"attack":{
+								"type": "light",
+								"action": "reverse"
+							}
+		},
+	  	{"input":"L","end":false,"attack":null},
+	  	{"input":"H","end":true,"attack":{
+	  							"name": "Heavy Attack",
+								"type": "combo",
+								"energyUsage": 25,
+								"orientationLock": true,
+								"movementLock": false,
+								"specialMovement": null,
+								
+								"sequence": [[
+									{
+										"weapon": "sword",
+										"damage": 2.0,
+										"cooldown": 35,
+										"attackForce": 130,
+										"knockback": 10,
+										"size": {"wid":9,"hei":40},
+										"motion": {
+											"type": "sweep",
+											"speed":200 ,
+											"start":-60 ,
+											"dist": 120 ,
+											"direction": "right"
+										}
+									},
+									{
+										"weapon": "bullet",
+										"damage": 1.5,
+										"cooldown": 35,
+										"attackForce": 130,
+										"knockback": 25,
+										"size": {"wid":60,"hei":3},
+										"motion": {
+											"type": "bullet",
+											"speed": 400,
+											"range": 400,
+											"pierce": 2
+										}
+									}
+								]]
+							}
+		}
+		]
+},
+{	"id": 999,
+	"name":"Gatling",
+	"steps":[
+	 	{"input":"L","end":false,"attack":null},
+	  	{"input":"L","end":false,"attack":null},
+	  	{"input":"L","end":false,"attack":null},
+	  	{"input":"L","end":false,"attack":null},
+	  	{"input":"L","end":true,"attack":{
+								"name": "Gatling",
+								"type": "combo",
+								"energyUsage": 15,
+								"orientationLock": true,
+								"movementLock": true,
+								"specialMovement": null,
+
+								"sequence": [[
+									{
+										"weapon": "punch",
+										"damage": 0.5,
+										"cooldown": 4,
+										"attackForce": 45,
+										"knockback": 1,
+										"size": {"wid":8,"hei":20},
+										"motion": {
+											"type": "jab",
+											"speedF": 300,
+											"speedB": 250,
+											"range": 22,
+											"angle": 0
+										}
+									}
+								],
+								[
+									{
+										"weapon": "punch",
+										"damage": 0.5,
+										"cooldown": 4,
+										"attackForce": 45,
+										"knockback": 1,
+										"size": {"wid":8,"hei":20},
+										"motion": {
+											"type": "jab",
+											"speedF": 300,
+											"speedB": 250,
+											"range": 22,
+											"angle": 10
+										}
+									}
+								],
+								[
+									{
+										"weapon": "punch",
+										"damage": 0.5,
+										"cooldown": 4,
+										"attackForce": 45,
+										"knockback": 1,
+										"size": {"wid":8,"hei":20},
+										"motion": {
+											"type": "jab",
+											"speedF": 300,
+											"speedB": 250,
+											"range": 22,
+											"angle": -20
+										}
+									}
+								],
+								[
+									{
+										"weapon": "punch",
+										"damage": 0.5,
+										"cooldown": 4,
+										"attackForce": 45,
+										"knockback": 1,
+										"size": {"wid":8,"hei":20},
+										"motion": {
+											"type": "jab",
+											"speedF": 300,
+											"speedB": 250,
+											"range": 22,
+											"angle": 20
+										}
+									}
+								],
+								[
+									{
+										"weapon": "punch",
+										"damage": 0.5,
 										"cooldown": 4,
 										"attackForce": 45,
 										"knockback": 1,
@@ -294,272 +668,6 @@
 									}
 								]
 								]
-							}
-		}
-		]
-},	
-{	"id": 2,
-	"name":"Tornado",
-	"steps":[
-	 	{"input":"H","end":false,"attack":null},
-	  	{"input":"H","end":false,"attack":{
-								"type": "heavy",
-								"action": "reverse"
-							}
-		},
-	  	{"input":"H","end":true,"attack":{
-								"name": "Tornado",
-								"type": "combo",
-								"energyUsage": 25,
-								"orientationLock": true,
-								"movementLock": true,
-								"specialMovement": {
-									"mSpeed": 0,
-									"mDirection": "forward",
-									"distance": 0,
-									"rSpeed": 80 ,
-									"rDirection": "right",
-									"rotation": 96
-								},
-
-								"sequence": [[
-									{
-										"weapon": "kick",
-										"damage": 1.5,
-										"cooldown": 70,
-										"attackForce": 120,
-										"knockback": 1,
-										"size": {"wid":8,"hei":25},
-										"motion": {
-											"type": "sweep",
-											"speed":600 ,
-											"start":  0 ,
-											"dist": 720 ,
-											"direction": "right"
-										}
-									},
-									{
-										"weapon": "kick",
-										"damage": 1.5,
-										"cooldown": 1,
-										"attackForce": 120,
-										"knockback": 0,
-										"size": {"wid":8,"hei":25},
-										"motion": {
-											"type": "sweep",
-											"speed":600 ,
-											"start":180 ,
-											"dist": 720 ,
-											"direction": "right"
-										}
-									}
-								]]
-							}
-	  	}
-	  	]
-},
-{	"id": 3,
-	"name":"Parage Shot",
-	"steps":[
-	 	{"input":"L","end":false,"attack":null},
-	  	{"input":"L","end":false,"attack":null},
-	  	{"input":"L","end":false,"attack":null},
-	  	{"input":"L","end":true,"attack":{
-								"name": "Parage Shot",
-								"energyUsage": 15,
-								"orientationLock": true,
-								"movementLock": true,
-								"specialMovement": {
-									"mSpeed": 150,
-									"mDirection": "forward",
-									"distance": 100,
-									"rSpeed": 0 ,
-									"rDirection": "left",
-									"rotation": 0
-								},
-
-								"sequence": [[
-									{
-										"weapon": "kick",
-										"damage": 1.1,
-										"cooldown": 10,
-										"attackForce": 60,
-										"knockback": 50,
-										"size": {"wid":8,"hei":25},
-										"motion": {
-											"type": "jab",
-											"speedF": 240,
-											"speedB": 180,
-											"range": 20,
-											"angle": 0 
-										}
-									}
-								],
-								[
-									{
-										"weapon": "kick",
-										"damage": 1.1,
-										"cooldown": 10,
-										"attackForce": 60,
-										"knockback": 50,
-										"size": {"wid":8,"hei":25},
-										"motion": {
-											"type": "jab",
-											"speedF": 240,
-											"speedB": 180,
-											"range": 20,
-											"angle": 0 
-										}
-									}
-								],
-								[
-									{
-										"weapon": "kick",
-										"damage": 1.1,
-										"cooldown": 10,
-										"attackForce": 60,
-										"knockback": 50,
-										"size": {"wid":8,"hei":25},
-										"motion": {
-											"type": "jab",
-											"speedF": 240,
-											"speedB": 180,
-											"range": 20,
-											"angle": 0 
-										}
-									}
-								],
-								[
-									{
-										"weapon": "kick",
-										"damage": 1.1,
-										"cooldown": 30,
-										"attackForce": 60,
-										"knockback": 0,
-										"size": {"wid":8,"hei":25},
-										"motion": {
-											"type": "jab",
-											"speedF": 240,
-											"speedB": 100,
-											"range": 20,
-											"angle": 0 
-										}
-									}
-								],
-								[
-									{
-										"weapon": "kick",
-										"damage": 1.8,
-										"cooldown": 40,
-										"attackForce": 60,
-										"knockback": 150,
-										"size": {"wid":8,"hei":25},
-										"motion": {
-											"type": "jab",
-											"speedF": 400,
-											"speedB": 50,
-											"range": 20,
-											"angle": 0 
-										}
-									}
-								]
-								]
-							}
-		}
-		]
-},
-{	"id": 4,
-	"name":"Charge",
-	"steps":[
-	 	{"input":"H","end":false,"attack":null},
-	  	{"input":"H","end":false,"attack":{
-								"type": "heavy",
-								"action": "reverse"
-							}
-		},
-	  	{"input":"L","end":true,"attack":{
-	  							"name": "Charge",
-								"energyUsage": 25,
-								"orientationLock": true,
-								"movementLock": false,
-								"specialMovement": {
-									"mSpeed": 400,
-									"mDirection": "forward",
-									"distance": 200,
-									"rSpeed": 0 ,
-									"rDirection": "left",
-									"rotation": 0
-								},
-								
-								"sequence": [[
-									{
-										"weapon": "sword",
-										"damage": 2.5,
-										"cooldown": 40,
-										"attackForce": 200,
-										"knockback": 130,
-										"size": {"wid":9,"hei":40},
-										"motion": {
-											"type": "jab",
-											"speedF": 400,
-											"speedB": 60,
-											"range": 25,
-											"angle": 0 
-										}
-									}
-								]]
-							}
-		}
-		]
-},
-{	"id": 5,
-	"name":"Pound Cannon",
-	"steps":[
-	 	{"input":"L","end":false,"attack":null},
-	  	{"input":"L","end":false,"attack":{
-								"type": "light",
-								"action": "reverse"
-							}
-		},
-	  	{"input":"L","end":false,"attack":null},
-	  	{"input":"H","end":true,"attack":{
-	  							"name": "Heavy Attack",
-								"energyUsage": 25,
-								"orientationLock": true,
-								"movementLock": false,
-								"specialMovement": null,
-								
-								"sequence": [[
-									{
-										"weapon": "sword",
-										"damage": 2.0,
-										"cooldown": 35,
-										"attackForce": 130,
-										"knockback": 10,
-										"size": {"wid":9,"hei":40},
-										"motion": {
-											"type": "sweep",
-											"speed":200 ,
-											"start":-60 ,
-											"dist": 120 ,
-											"direction": "right"
-										}
-									},
-									{
-										"weapon": "bullet",
-										"damage": 1.5,
-										"cooldown": 35,
-										"attackForce": 130,
-										"knockback": 25,
-										"size": {"wid":60,"hei":3},
-										"motion": {
-											"type": "bullet",
-											"speed": 400,
-											"range": 400,
-											"pierce": 2
-										}
-									}
-								]]
 							}
 		}
 		]

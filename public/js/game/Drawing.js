@@ -770,11 +770,33 @@ Drawing.prototype.writeCurrentSkill = function(player, skill, startX, startY, sc
         this.context.fillText("Knockback: "+write.sequence[0][0].knockback.toFixed(0), startX, startY+=24);
         this.context.fillText("Attack Force: "+write.sequence[0][0].attackForce.toFixed(0), startX, startY+=24);
     }
-    else if(skill.type == "combo" && skill.subtype != "upgrade"){
+    else if(skill.type == "combo" && skill.subtype == null){
         var cInfo = getComboInformation(write);
 
         this.context.font = "bold "+(23/scale)+"px Arial";
         this.context.fillText("Sequence: "+cInfo.sequence, startX, startY+=24);
+        this.context.font = ""+(23/scale)+"px Arial";
+        this.context.fillText("Attacks: "+cInfo.attacks, startX, startY+=24);
+        this.context.fillText("Damage: "+(cInfo.damage*player.damage).toFixed(2), startX, startY+=24);
+        this.context.fillText("Cooldown: "+cInfo.cooldown.toFixed(2), startX, startY+=24);
+        this.context.fillText("Energy Usage: "+cInfo.energyUsage.toFixed(0), startX, startY+=24);
+        this.context.fillText("Knockback: "+cInfo.knockback.toFixed(0), startX, startY+=24);
+        this.context.fillText("Attack Force: "+cInfo.attackForce.toFixed(0), startX, startY+=24);
+    }
+    else if(skill.type == "combo" && skill.subtype == "finisher"){
+        var starter = "";
+        var list = player.skillTrees[player.selectedCombatTree].comboListOpt;
+        for(var c in list){
+            if(list[c].id == skill.comboID){
+                var temp = getComboInformation(list[c]);
+                starter = temp.sequence;
+            }
+
+        }
+        var cInfo = getComboUpgradeInformation(write);
+
+        this.context.font = "bold "+(23/scale)+"px Arial";
+        this.context.fillText("Sequence: ["+starter+"]"+cInfo.sequence, startX, startY+=24);
         this.context.font = ""+(23/scale)+"px Arial";
         this.context.fillText("Attacks: "+cInfo.attacks, startX, startY+=24);
         this.context.fillText("Damage: "+(cInfo.damage*player.damage).toFixed(2), startX, startY+=24);
@@ -1042,6 +1064,35 @@ function getComboInformation(combo){
             break;
         }
     }
+
+    return cInfo;
+}
+
+function getComboUpgradeInformation(combo){
+    var cInfo = {
+        damage: 0,
+        attacks: 0,
+        cooldown: 0,
+        energyUsage: combo.attack.energyUsage,
+        attackForce: 0,
+        knockback: 0,
+        sequence: combo.input
+    };
+
+    var lastAttack = null;
+    for(var stage in combo.attack.sequence){ //phase of attack
+        for(var a in combo.attack.sequence[stage]){ //Attacks
+            var attack = combo.attack.sequence[stage][a];
+            lastAttack = attack;
+            cInfo.damage += attack.damage;
+            cInfo.attacks++;
+            if(cInfo.attackForce < attack.attackForce) cInfo.attackForce = attack.attackForce;
+        }
+    }
+
+    //Last Attack
+    cInfo.knockback = lastAttack.knockback;
+    cInfo.cooldown = lastAttack.cooldown;
 
     return cInfo;
 }
