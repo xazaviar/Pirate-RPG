@@ -1,0 +1,156 @@
+Skill Ideas
+
+Ranged [75]
+////////////////////////////////////////////////////////////
+
+Tier 1
+*********************************************************
+[atk] Ranged Attack - 5
+[atk] Melee attack - 5 (short range sweep) 
+[act] fire shot - 5 (increase damage, decreased cooldown)
+
+Tier 2 [11]
+*********************************************************
+[P] Precise Eye - 5 (precision boost)
+[P] Long Shot - 5 (range boost)
+[act] Trap - 5 (increased duration)
+[sta] Close Combat Stance - 5 (decreased range, increased attack speed, increased melee damage)
+
+
+Tier 3 [22]
+*********************************************************
+[P] Improved Bullets - 5 (Damage boost)
+[P] Hidden Trap - 1 (makes traps invisible)
+[sta] sniper's stance - 5 (increased range and damage, decreased attack speed)
+[act] melee stun - 3 (can stun targets with melee attack, increases duration, decreases cooldown)
+[act] smoke screen - 1
+[act] Sniper's mark - 2 (mark a target. 1-Marked target takes more damage 2-is visible off screen)
+
+
+Tier 4 [33]
+*********************************************************
+[p] Escape Artist - 5 (speed and dodge chance boost)
+[p] Elemental shot - 3 (ice, poison, electric)
+[act/U] Elemental shot Boom - 5 (AoE explosion on all elemental shots) 
+
+
+Tier 5 [44]
+*********************************************************
+[P] sniper's sense - 5 (increased pov)
+[P] elemental smoke screen - 5 (increased duration and range)
+
+
+
+Swords [75]
+////////////////////////////////////////////////////////////
+
+Tier 1
+*********************************************************
+[atk] light attack - 5
+[atk] heavy attack - 5
+[c] Aggressive slash - 5 (multiple attacks moving forward) {LLL}
+
+Tier 2
+*********************************************************
+[c] Charge - 5 (lunges forward, increased damage and range) {HHL}
+[sta] defensive stance - 5 (increased defense and blocking power, decreased damage)
+[p] dual wielding - 1
+[aura] Use back of blades - 3 (applies stuns to all attacks, but damage is decreased)
+
+Tier 3
+*********************************************************
+[c] flying slash - 5 (send a slash forward) {LLH}
+[sta] Offenseive stance - 5 (increased damage and speed, decreased defense)
+[p] combo chaining - 1 (the last input of the combo is saved)
+[p] Wombo Combo - 5 (increased combo damage)
+[p] dual wield strength - 5 (increased damage)
+[p] cut steel - 1 (can cut steel and adds damage penetration to attacks)
+
+Tier 4
+*********************************************************
+[aura] Tiger's Aura - 3 (increased speed)
+[c] Cutdown - 5 (inclicts bleeding) {HLLH}
+[p] Counter attack - 3 (after successfull block, player can counter attack. This will stun the target for a short time. Counter attack window increases)
+
+Tier 5
+*********************************************************
+[sta] Samurai stance - 5 (increased combo damage and defense)
+[p] Deep cuts - 3 (chance to apply bleeding to all attacks)
+[c] Demon burst - 5 (multidirectional slash) {HHLLH}
+
+
+
+
+Durability [75]
+////////////////////////////////////////////////////////////
+
+Tier 1
+*********************************************************
+[P] Increase Health I - 5
+[P] Increase Defense I - 5
+[P] Increase Blocking Power I - 5
+
+Tier 2
+*********************************************************
+[P] Safe Super Regen - 5 (When out of combat, hp regen shoots up to 15%/s. Levels decrease out of combat cooldown) 
+[P] Increase Health Regen I - 5
+
+Tier 3
+*********************************************************
+[P] Increase Health II - 5
+[P] Increase Defense II - 5
+[aura] Turtle Aura - 5 (the users mobility decreases, but defense spikes way up)
+
+
+Tier 4
+*********************************************************
+[P] Phase 2 - 5 (when below 50% hp, damage and defense)
+[P] Increase Blocking Power II - 5
+[P] Increase Health Regen II - 5
+[aura] Best offense - 5 (Relect some of the damage taken)
+
+Tier 5
+*********************************************************
+[P] Phase 3 - 5 (when below 25% hp, damage and defense is greatly increased)
+[P] Increase Health III - 5
+[P] Increase Defense III - 5
+
+
+
+Mobility [75]
+////////////////////////////////////////////////////////////
+
+Tier 1
+*********************************************************
+[P] Increase Speed I - 5
+[P] Increased Energy I - 5
+[P] Increase Energy Regen I - 5
+
+
+Tier 2
+*********************************************************
+[P] Increase Dodge Chance I - 5
+[p] Increase dodge range I - 5
+
+
+Tier 3
+*********************************************************
+[P] Increase Speed II - 5
+[P] Increased Energy II - 5
+[P] Increase Energy Regen II - 5
+[aura] Energy Super charge - 5 (Increase maximum energy temporarily)
+
+
+Tier 4
+*********************************************************
+[P] Increase Dodge Chance II - 5
+[p] Increase dodge range II - 5
+
+
+Tier 5
+*********************************************************
+[P] Increase Speed III - 5
+[P] Increased Energy III - 5
+[P] Increase Energy Regen III - 5
+[Aura] Way of the Ninja - 5 (Dodge chance goes to 100%)
+

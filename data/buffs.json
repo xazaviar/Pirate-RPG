@@ -21,7 +21,8 @@
 	"name": "Stun",
 	"type": "debuff",
 	"stats":{
-		"damageRes": -0.2
+		"damageRes": -0.2,
+		"stopMove": "all"
 	},
 	"duration": 5
 }

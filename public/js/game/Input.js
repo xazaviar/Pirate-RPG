@@ -19,7 +19,11 @@ Input.DOWN        = false;
 Input.DODGE       = false;
 Input.BLOCK       = false;
 Input.RESPAWN     = false;
-Input.MENU        = false
+Input.MENU        = false;
+                    //1,2,3,4,5,6,7,8,9,0,-,=
+Input.ACTION_KEYS = [false,false,false,false,
+                     false,false,false,false,
+                     false,false,false,false];
 Input.MISC_KEYS   = {};
 
 /**
@@ -80,11 +84,31 @@ Input.onKeyDown = function(event) {
     case 32:
       Input.DODGE = true;
       break;
-    case 48:
+    case 89:
       Input.RESPAWN = true;
       break;
     case 27:
       Input.MENU = true;
+      break;
+    case 49:
+    case 50:
+    case 51:
+    case 52:
+    case 53:
+    case 54:
+    case 55:
+    case 56:
+    case 57:
+      Input.ACTION_KEYS[event.keyCode-49] = true;
+      break;
+    case 48:
+      Input.ACTION_KEYS[9] = true;
+      break;
+    case 189:
+      Input.ACTION_KEYS[10] = true;
+      break;
+    case 187:
+      Input.ACTION_KEYS[11] = true;
       break;
     default:
       Input.MISC_KEYS[event.keyCode] = true;
@@ -119,11 +143,31 @@ Input.onKeyUp = function(event) {
     case 32:
       Input.DODGE = false;
       break;
-    case 48:
+    case 89:
       Input.RESPAWN = false;
       break;
     case 27:
       Input.MENU = false;
+      break;
+    case 49:
+    case 50:
+    case 51:
+    case 52:
+    case 53:
+    case 54:
+    case 55:
+    case 56:
+    case 57:
+      Input.ACTION_KEYS[event.keyCode-49] = false;
+      break;
+    case 48:
+      Input.ACTION_KEYS[9] = false;
+      break;
+    case 189:
+      Input.ACTION_KEYS[10] = false;
+      break;
+    case 187:
+      Input.ACTION_KEYS[11] = false;
       break;
     default:
       Input.MISC_KEYS[event.keyCode] = false;

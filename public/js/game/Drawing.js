@@ -333,9 +333,14 @@ Drawing.prototype.drawGrid = function(px, py, wid, hei, size){
 
 //UI Drawing
 //**********************************************************************
-Drawing.prototype.drawUI = function(hp,hpMax,energy,energyMax) {
-    var width = 200;
-    var height = 20;
+Drawing.prototype.drawUI = function(hp,hpMax,energy,energyMax,activeList) {
+    var wid = $("#canvas").width();
+    var hei = $("#canvas").height();
+    const scale = (1920/wid);
+
+    var start = 10/scale;
+    var barWidth = 300/scale;
+    var barHeight = 20/scale;
 
 
     this.context.save();
@@ -343,22 +348,63 @@ Drawing.prototype.drawUI = function(hp,hpMax,energy,energyMax) {
 
     //HP Bar
     this.context.fillStyle = '#D1D1D1';
-    this.context.fillRect(10,10,width,height);
+    this.context.fillRect(start,start,barWidth,barHeight);
     this.context.fillStyle = '#FF0000';
-    this.context.fillRect(10,10,width*(hp/hpMax),height);
+    this.context.fillRect(start,start,barWidth*(hp/hpMax),barHeight);
   
     //Energy Bar
     this.context.fillStyle = '#D1D1D1';
-    this.context.fillRect(10,10+height,width,height);
+    this.context.fillRect(start,start+barHeight,barWidth,barHeight);
     this.context.fillStyle = '#FFA500';
-    this.context.fillRect(10,10+height,width*(energy/energyMax),height);
+    this.context.fillRect(start,start+barHeight,barWidth*(energy/energyMax),barHeight);
 
+    //Actions Bar
+    var boxSize = 60/scale;
+    const buttons = ['1','2','3','4','5','6','7','8','9','0','-','='];
+    start = wid/2 - buttons.length*boxSize/2;
+
+    this.context.fillStyle = '#FFF';
+    this.context.fillRect(start,hei-boxSize,buttons.length*boxSize,boxSize);
+    this.context.fill();
+
+    this.context.strokeStyle = '#000';
+    this.context.font = ""+(12/scale)+"px Arial";
+    for(var b in buttons){
+        if(activeList[b] != null){
+            //Draw active
+            if(activeList[b].type == "skill"){
+                this.context.beginPath();
+                this.context.drawImage(this.skillImages[activeList[b].skill.id].image,start+b*boxSize,hei-boxSize,boxSize,boxSize);
+                this.context.fill();
+
+                //Draw cooldown
+                var cooldownRatio = 0;
+                if(activeList[b].skill.subtype != "stance")
+                    cooldownRatio = 1.0*activeList[b].skill.cooldown/activeList[b].skill.cooldownMax;
+
+                this.context.beginPath();
+                this.context.fillStyle = 'rgba(0,0,0,.5)';
+                this.context.fillRect(start+b*boxSize,hei-boxSize,boxSize,boxSize*cooldownRatio);
+                this.context.fill();
+            }
+        }
+
+
+        this.context.beginPath();
+        this.context.fillStyle = '#FFF';
+        this.context.rect(start+b*boxSize,hei-boxSize,boxSize,boxSize);
+        this.context.stroke();
+        this.context.beginPath();
+        this.context.fillStyle = '#000';
+        this.context.fillText(buttons[b],start+boxSize-10/scale+b*boxSize,hei-boxSize+10/scale);
+        this.context.fill();
+    }
 
     this.context.fill();
     this.context.restore();
 }
 
-Drawing.prototype.drawMenu = function(player, mouse, click){
+Drawing.prototype.drawMenu = function(player, mouse, click, action_keys){
     const scale = .8;
     var wid = $("#canvas").width();
     var hei = $("#canvas").height();
@@ -394,7 +440,7 @@ Drawing.prototype.drawMenu = function(player, mouse, click){
         actions = this.drawPlayerTab({x:placeX,y:placeY,scale:scale}, player);
     }
     else if(this.menuTab == 1){
-        actions = this.drawSkillsTab({x:placeX,y:placeY,scale:scale}, player, mAdj, click);
+        actions = this.drawSkillsTab({x:placeX,y:placeY,scale:scale}, player, mAdj, click, action_keys);
     }
 
 
@@ -443,7 +489,7 @@ Drawing.prototype.drawPlayerTab = function(book, player){
     return [];
 }
 
-Drawing.prototype.drawSkillsTab = function(book, player, mouse, click){
+Drawing.prototype.drawSkillsTab = function(book, player, mouse, click, action_keys){
     var wid = $("#canvas").width();
     var hei = $("#canvas").height();
     const scale = (1920/wid);
@@ -555,6 +601,21 @@ Drawing.prototype.drawSkillsTab = function(book, player, mouse, click){
                 this.hoverSkill = skill.id;
                 if(click)
                     this.viewSkill = skill.id;
+
+                if(skill.level > 0){
+                    for(var a in action_keys){
+                        if(action_keys[a]){
+                            actions.push({
+                                type: "assignAction",
+                                action: skill.id,
+                                actionType: "skill",
+                                tree: this.viewTree,
+                                index: parseInt(a)
+                            });
+                            break;
+                        }
+                    }  
+                }
 
                 this.context.fillStyle = "rgba(0,0,255,.2)";
                 this.context.fillRect(x,y,skillSize,skillSize);
@@ -756,6 +817,7 @@ Drawing.prototype.drawSkillsTab = function(book, player, mouse, click){
     }
 
     //Actions performed
+    //if(actions.length > 0) console.log(actions);
     return actions;
 }
 

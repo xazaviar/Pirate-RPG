@@ -142,7 +142,8 @@
 	"prereq": [],
 	"base": {
 		"energyUsage": 35,
-		"buffs":[0]
+		"buffs":[0],
+		"abilityCooldown": 10
 	},
 	"upgrade": null
 },

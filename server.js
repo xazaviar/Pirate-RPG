@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 8080;
 // Dependencies.
 const express = require('express');
 const http = require('http');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const socketIO = require('socket.io');
 
 const Game = require('./lib/Game');

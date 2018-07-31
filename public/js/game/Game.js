@@ -19,6 +19,7 @@ function Game(socket, drawing) {
     this.firstData = true;
     this.switchTree = -1;
     this.applySP = null;
+    this.assignAction = null;
 
     //FPS tracking
     this.fps = 0;
@@ -108,7 +109,6 @@ Game.prototype.update = function() {
         // Emits an event for the containing the player's input.
         var mouse = this.calculateMouseCoords(Input.MOUSE[0],Input.MOUSE[1],this.selfPlayer.x,this.selfPlayer.y,this.drawing.scale);
 
-
         this.socket.emit('player-action', {
             keyboardState: {
                 left:       Input.LEFT,
@@ -117,12 +117,14 @@ Game.prototype.update = function() {
                 down:       Input.DOWN,
                 dodge:      Input.DODGE,
                 block:      Input.BLOCK,
-                respawn:    Input.RESPAWN
+                respawn:    Input.RESPAWN,
+                actives:    Input.ACTION_KEYS
             },
             menuState: {
                 menuOpen:   this.menuOpen,
                 switchTree: this.switchTree,
-                applySP:    this.applySP
+                applySP:    this.applySP,
+                assignAction:  this.assignAction
             },
             mouseState: {
                 x:          mouse.x,
@@ -134,6 +136,7 @@ Game.prototype.update = function() {
         this.correctPosition(this.selfPlayer);
         this.switchTree = -1;
         this.applySP = null;
+        this.assignAction = null;
         this.draw();
 
         //Check if need to shut down
@@ -250,16 +253,18 @@ Game.prototype.draw = function() {
     this.drawing.drawUI(this.selfPlayer.hp,
                         this.selfPlayer.hpMax,
                         this.selfPlayer.energy,
-                        this.selfPlayer.energyMax);
+                        this.selfPlayer.energyMax,
+                        this.selfPlayer.activeList);
 
 
     if(this.menuOpen){
-        var actions = this.drawing.drawMenu(this.selfPlayer, Input.MOUSE, Input.LEFT_CLICK);
+        var actions = this.drawing.drawMenu(this.selfPlayer, Input.MOUSE, Input.LEFT_CLICK, Input.ACTION_KEYS);
 
         //Probably will only be one or none
         for(var a in actions){
             if(actions[a].type=="switchTree") this.switchTree = actions[a].value;
             if(actions[a].type=="applySP") this.applySP = {skill:actions[a].skill,tree:actions[a].tree};
+            if(actions[a].type=="assignAction") this.assignAction = {tree: actions[a].tree, index:actions[a].index, type: actions[a].actionType, action:actions[a].action};
         }
     }
 };
