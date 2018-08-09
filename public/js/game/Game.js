@@ -247,14 +247,16 @@ Game.prototype.draw = function() {
     // this.drawing.drawText("Spawn : "+this.selfPlayer.spawn.id+" ["+this.selfPlayer.spawn.loc.x+","+this.selfPlayer.spawn.loc.y+"]",$("#canvas").width()-left,down+=10);
     this.drawing.drawText("inMenu: "+this.menuOpen,                                                 $("#canvas").width()-left,down+=10);
     // this.drawing.drawText("Switch: "+this.switchTree,                                               $("#canvas").width()-left,down+=10);
+    this.drawing.drawText("Buffs : "+this.selfPlayer.curBuffList.length,                                               $("#canvas").width()-left,down+=10);
 
     
     //Draw UI
     this.drawing.drawUI(this.selfPlayer.hp,
-                        this.selfPlayer.hpMax,
+                        this.selfPlayer.hpStaticMax,
                         this.selfPlayer.energy,
-                        this.selfPlayer.energyMax,
-                        this.selfPlayer.activeList);
+                        this.selfPlayer.energyStaticMax,
+                        this.selfPlayer.activeList,
+                        this.selfPlayer.curBuffList);
 
 
     if(this.menuOpen){

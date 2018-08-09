@@ -333,7 +333,7 @@ Drawing.prototype.drawGrid = function(px, py, wid, hei, size){
 
 //UI Drawing
 //**********************************************************************
-Drawing.prototype.drawUI = function(hp,hpMax,energy,energyMax,activeList) {
+Drawing.prototype.drawUI = function(hp,hpMax,energy,energyMax,activeList,buffList) {
     var wid = $("#canvas").width();
     var hei = $("#canvas").height();
     const scale = (1920/wid);
@@ -358,6 +358,14 @@ Drawing.prototype.drawUI = function(hp,hpMax,energy,energyMax,activeList) {
     this.context.fillStyle = '#FFA500';
     this.context.fillRect(start,start+barHeight,barWidth*(energy/energyMax),barHeight);
 
+    //Buff list
+    var buffSize = 40/scale;
+    for(var b in buffList){
+        this.context.beginPath();
+        this.context.drawImage(this.buffImages[buffList[b].id].image,start+b*(buffSize+5),barHeight+buffSize,buffSize,buffSize);
+        this.context.fill();
+    }
+
     //Actions Bar
     var boxSize = 60/scale;
     const buttons = ['1','2','3','4','5','6','7','8','9','0','-','='];
@@ -379,7 +387,7 @@ Drawing.prototype.drawUI = function(hp,hpMax,energy,energyMax,activeList) {
 
                 //Draw cooldown
                 var cooldownRatio = 0;
-                if(activeList[b].skill.subtype != "stance")
+                // if(activeList[b].skill.subtype != "stance")
                     cooldownRatio = 1.0*activeList[b].skill.cooldown/activeList[b].skill.cooldownMax;
 
                 this.context.beginPath();
@@ -499,6 +507,7 @@ Drawing.prototype.drawSkillsTab = function(book, player, mouse, click, action_ke
     // console.log(player.skillTrees);
 
     //Left Side
+    //************************************************************************************
     var xOffset = 42/scale;
     var startX = book.x+xOffset;
     var startY = book.y+40/scale;
@@ -556,7 +565,7 @@ Drawing.prototype.drawSkillsTab = function(book, player, mouse, click, action_ke
     this.context.fillRect(x,y,wid,hei);
 
     //Draw Skills
-    var selectedSkill = null, backupSkill = null;
+    var selectedSkill = null, backupSkill = null, selectedTier = 0;
     for(var tier in curTree.tiers){
         //Draw tier line
         this.context.strokeStyle = "black";
@@ -578,6 +587,7 @@ Drawing.prototype.drawSkillsTab = function(book, player, mouse, click, action_ke
                 this.context.fillStyle = "red";
                 this.context.fillRect(x-2,y-2,skillSize+4,skillSize+4);
                 selectedSkill = skill;
+                selectedTier = tier;
             }
 
             this.context.drawImage(this.skillImages[skill.id].image,x,y,skillSize,skillSize);
@@ -648,7 +658,12 @@ Drawing.prototype.drawSkillsTab = function(book, player, mouse, click, action_ke
     this.context.beginPath();
     this.context.drawImage(this.skillTreeImages[this.viewTree].image,startX+lWid/2-treeLogoSize/2,startY,treeLogoSize,treeLogoSize);
 
+
+    this.context.font = "bold "+(20/scale)+"px Arial";
+    this.context.fillText("LVL: "+curTree.level,startX+420/scale, startY+130/scale);
+
     //Right Side
+    //************************************************************************************
     
     //Seperator line
     this.context.fillStyle = '#000';
@@ -689,7 +704,9 @@ Drawing.prototype.drawSkillsTab = function(book, player, mouse, click, action_ke
         }
 
         //Button
-        if(selectedSkill.level < selectedSkill.maxLevels && player.skillPoints > 0){
+        var metReqs = curTree.level >= curTree.requirements[selectedTier].level && curTree.appliedSP >= curTree.requirements[selectedTier].sp,
+            metPrereqs = Util.hasPrereqs(selectedSkill,player.skillTrees);
+        if(selectedSkill.level < selectedSkill.maxLevels && player.skillPoints > 0 && metReqs && metPrereqs ||true){
             var x = startX;
                 y = startY+skillSize+30/scale;
             if(mouse.x > x && mouse.x < x+skillSize && mouse.y > y && mouse.y < y+40/scale){
@@ -719,7 +736,7 @@ Drawing.prototype.drawSkillsTab = function(book, player, mouse, click, action_ke
         if(selectedSkill.level == 0){
             //Display None
             this.context.font = ""+(30/scale)+"px Arial";
-            this.context.fillText("None", startX+85/scale, startY+=30);
+            this.context.fillText("None", startX+85/scale, startY+=30/scale);
         }
         else{
             this.writeCurrentSkill(player, selectedSkill, startX, startY, scale);
@@ -741,16 +758,17 @@ Drawing.prototype.drawSkillsTab = function(book, player, mouse, click, action_ke
         else if(selectedSkill.upgrade != null && selectedSkill.level < selectedSkill.maxLevels){
             //Display Increase
             this.context.font = ""+(23/scale)+"px Arial";
+            startY+=12/scale;
             var keys = Object.keys(selectedSkill.upgrade);
             for(var k in keys){
                 var value = selectedSkill.upgrade[""+keys[k]].toFixed(2);
-                this.context.fillText(propertyUpgradeLookup(keys[k], value), startX, startY+=24);
+                this.context.fillText(propertyUpgradeLookup(keys[k], value), startX, startY+=24/scale);
             }
         }
         else{
             //No more Upgrades
             this.context.font = ""+(30/scale)+"px Arial";
-            this.context.fillText("Maxed out", startX+40/scale, startY+=30);
+            this.context.fillText("Maxed out", startX+40/scale, startY+=30/scale);
         }
     }
 
@@ -823,27 +841,28 @@ Drawing.prototype.drawSkillsTab = function(book, player, mouse, click, action_ke
 
 Drawing.prototype.writeCurrentSkill = function(player, skill, startX, startY, scale){
     var write = skill.level == 0?skill.base:skill.curSkill;
+    startY+=12/scale;
 
     if(skill.type == "attack"){
         this.context.font = ""+(23/scale)+"px Arial";
-        this.context.fillText("Damage: "+(write.sequence[0][0].damage*player.damage).toFixed(2), startX, startY+=24);
-        this.context.fillText("Cooldown: "+write.sequence[0][0].cooldown.toFixed(2), startX, startY+=24);
-        this.context.fillText("Energy Usage: "+write.energyUsage.toFixed(2), startX, startY+=24);
-        this.context.fillText("Knockback: "+write.sequence[0][0].knockback.toFixed(0), startX, startY+=24);
-        this.context.fillText("Attack Force: "+write.sequence[0][0].attackForce.toFixed(0), startX, startY+=24);
+        this.context.fillText("Damage: "+(write.sequence[0][0].damage*player.damage).toFixed(2), startX, startY+=24/scale);
+        this.context.fillText("Cooldown: "+write.sequence[0][0].cooldown.toFixed(2), startX, startY+=24/scale);
+        this.context.fillText("Energy Usage: "+write.energyUsage.toFixed(2), startX, startY+=24/scale);
+        this.context.fillText("Knockback: "+write.sequence[0][0].knockback.toFixed(0), startX, startY+=24/scale);
+        this.context.fillText("Attack Force: "+write.sequence[0][0].attackForce.toFixed(0), startX, startY+=24/scale);
     }
     else if(skill.type == "combo" && skill.subtype == null){
         var cInfo = getComboInformation(write);
 
         this.context.font = "bold "+(23/scale)+"px Arial";
-        this.context.fillText("Sequence: "+cInfo.sequence, startX, startY+=24);
+        this.context.fillText("Sequence: "+cInfo.sequence, startX, startY+=24/scale);
         this.context.font = ""+(23/scale)+"px Arial";
-        this.context.fillText("Attacks: "+cInfo.attacks, startX, startY+=24);
-        this.context.fillText("Damage: "+(cInfo.damage*player.damage).toFixed(2), startX, startY+=24);
-        this.context.fillText("Cooldown: "+cInfo.cooldown.toFixed(2), startX, startY+=24);
-        this.context.fillText("Energy Usage: "+cInfo.energyUsage.toFixed(0), startX, startY+=24);
-        this.context.fillText("Knockback: "+cInfo.knockback.toFixed(0), startX, startY+=24);
-        this.context.fillText("Attack Force: "+cInfo.attackForce.toFixed(0), startX, startY+=24);
+        this.context.fillText("Attacks: "+cInfo.attacks, startX, startY+=24/scale);
+        this.context.fillText("Damage: "+(cInfo.damage*player.damage).toFixed(2), startX, startY+=24/scale);
+        this.context.fillText("Cooldown: "+cInfo.cooldown.toFixed(2), startX, startY+=24/scale);
+        this.context.fillText("Energy Usage: "+cInfo.energyUsage.toFixed(0), startX, startY+=24/scale);
+        this.context.fillText("Knockback: "+cInfo.knockback.toFixed(0), startX, startY+=24/scale);
+        this.context.fillText("Attack Force: "+cInfo.attackForce.toFixed(0), startX, startY+=24/scale);
     }
     else if(skill.type == "combo" && skill.subtype == "finisher"){
         var starter = "";
@@ -858,21 +877,49 @@ Drawing.prototype.writeCurrentSkill = function(player, skill, startX, startY, sc
         var cInfo = getComboUpgradeInformation(write);
 
         this.context.font = "bold "+(23/scale)+"px Arial";
-        this.context.fillText("Sequence: ["+starter+"]"+cInfo.sequence, startX, startY+=24);
+        this.context.fillText("Sequence: ["+starter+"]"+cInfo.sequence, startX, startY+=24/scale);
         this.context.font = ""+(23/scale)+"px Arial";
-        this.context.fillText("Attacks: "+cInfo.attacks, startX, startY+=24);
-        this.context.fillText("Damage: "+(cInfo.damage*player.damage).toFixed(2), startX, startY+=24);
-        this.context.fillText("Cooldown: "+cInfo.cooldown.toFixed(2), startX, startY+=24);
-        this.context.fillText("Energy Usage: "+cInfo.energyUsage.toFixed(0), startX, startY+=24);
-        this.context.fillText("Knockback: "+cInfo.knockback.toFixed(0), startX, startY+=24);
-        this.context.fillText("Attack Force: "+cInfo.attackForce.toFixed(0), startX, startY+=24);
+        this.context.fillText("Attacks: "+cInfo.attacks, startX, startY+=24/scale);
+        this.context.fillText("Damage: "+(cInfo.damage*player.damage).toFixed(2), startX, startY+=24/scale);
+        this.context.fillText("Cooldown: "+cInfo.cooldown.toFixed(2), startX, startY+=24/scale);
+        this.context.fillText("Energy Usage: "+cInfo.energyUsage.toFixed(0), startX, startY+=24/scale);
+        this.context.fillText("Knockback: "+cInfo.knockback.toFixed(0), startX, startY+=24/scale);
+        this.context.fillText("Attack Force: "+cInfo.attackForce.toFixed(0), startX, startY+=24/scale);
     }
-    else if(skill.type == "passive" || (skill.type == "active" && skill.subtype == "stance")){
+    else if(skill.type == "active" && skill.subtype != null){
+        this.context.font = ""+(23/scale)+"px Arial";
+        var keys = Object.keys(write);
+        // console.log(keys);
+        for(var k in keys){
+            if(keys[k] == "buffs"){
+                this.context.fillText("Applied Buff"+(write["buffs"].length>1?"s":""), startX, startY+=24/scale);
+                for(var b in write["buffs"]){
+                    var buff = write["buffs"][b];
+                    this.context.fillText(buff.name, startX+15/scale, startY+=24/scale);
+
+                    var vals = Object.keys(buff.stats);
+                    for(var v in vals){
+                        var value = buff.stats[""+vals[v]].toFixed(2);
+                        this.context.fillText(propertyUpgradeLookup(vals[v], value), startX+15/scale, startY+=24/scale);
+                    }
+
+                    if(buff.duration > 0){
+                        this.context.fillText(propertyWordLookup("duration")+": "+buff.duration+"s", startX+15/scale, startY+=24/scale);
+                    }
+                }
+            }
+            else{
+                var value = write[""+keys[k]].toFixed(0);
+                this.context.fillText(propertyWordLookup(keys[k])+": "+value, startX, startY+=24/scale);
+            }
+        }
+    }
+    else if(skill.type == "passive"){
         this.context.font = ""+(23/scale)+"px Arial";
         var keys = Object.keys(write);
         for(var k in keys){
             var value = write[""+keys[k]].toFixed(2);
-            this.context.fillText(propertyUpgradeLookup(keys[k], value), startX, startY+=24);
+            this.context.fillText(propertyUpgradeLookup(keys[k], value), startX, startY+=24/scale);
         }
     }     
 }
@@ -911,9 +958,10 @@ Drawing.prototype.loadMaps = function(maps, curMap){
 }
 
 Drawing.prototype.loadSkillImages = function(skillTrees){
+    // console.log(skillTrees);
     this.skillTreeImages = [];
 
-    var temp = [];
+    var temp = [], btemp = [];
     for(var t in skillTrees){
         var stImage = new Image;
         stImage.src = "/images/skills/"+skillTrees[t].name+".png";
@@ -932,16 +980,32 @@ Drawing.prototype.loadSkillImages = function(skillTrees){
                 temp.push({
                     id: skillTrees[t].tiers[tier][s].id,
                     image: sImage
-                });
+                });             
+
+                if(skillTrees[t].tiers[tier][s].base.hasOwnProperty("buffs")){
+                    var buffList = skillTrees[t].tiers[tier][s].base.buffs;                    for(var b in buffList){
+                        var bImage = new Image;
+                        bImage.src = "/images/buffs/"+buffList[b].id+".png";
+
+                        btemp.push({
+                            id: buffList[b].id,
+                            image: bImage
+                        });
+                    }
+                }
             }
         }
     }
-
 
     //Order skills in place (for O(1) retrieval)
     this.skillImages = [];
     for(var s in temp){
         this.skillImages[temp[s].id] = temp[s];
+    }
+
+    this.buffImages = [];
+    for(var b in btemp){
+        this.buffImages[btemp[b].id] = btemp[b];
     }
 }
 
@@ -1065,7 +1129,8 @@ function propertyUpgradeLookup(property, value){
     else if (property == "speed")       upgrade = (value>0?"+":"")+(value*100)+"% Speed";
     else if (property == "dodgeChance") upgrade = (value>0?"+":"")+(value*100)+"% Dodge Chance";
     else if (property == "debuffChance")    upgrade = (value>0?"+":"")+(value*100)+"% Debuff Chance";
-    else if (property == "abilityCooldown") upgrade = (value>0?"+":"")+(value)+" Ability Cooldown";
+    else if (property == "abilityCooldown") upgrade = (value>0?"+":"")+(value)+"s Cooldown";
+    else if (property == "duration")    upgrade = (value>0?"+":"")+(value)+"s Duration";
 
     return upgrade;
 }
@@ -1085,6 +1150,7 @@ function propertyWordLookup(property){
     else if (property == "dodgeChance")     word = "Dodge Chance";
     else if (property == "debuffChance")    word = "Debuff Chance";
     else if (property == "abilityCooldown") word = "Ability Cooldown";
+    else if (property == "duration")        word = "Duration";
 
     return word;
 }

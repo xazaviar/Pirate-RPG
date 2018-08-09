@@ -505,3 +505,32 @@ Util.lineLineCollision = function(line1,line2){
 
     return (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1);
 }
+
+
+Util.hasPrereqs = function(skill, trees){
+    var hasPre = true;
+    for(var pre in skill.prereq){
+        hasPre = false;
+        var foundSkill = false;
+        for(var t in trees){
+            for(var tier in trees[t].tiers){
+                for(var s in trees[t].tiers[tier]){
+                    if(trees[t].tiers[tier][s].id == skill.prereq[pre].id){
+                        hasPre = trees[t].tiers[tier][s].level >= skill.prereq[pre].level;
+                        foundSkill = true;
+                        break;
+                    }
+                } //Close Skills
+
+                if(foundSkill) break;
+            } //Close Tiers
+
+            if(foundSkill) break;
+        } //Close Trees
+
+        if(!hasPre && foundSkill) break;
+    } //Close Prereq
+
+
+    return hasPre;
+}

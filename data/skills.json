@@ -107,9 +107,8 @@
 	"prereq": [],
 	"base": {
 		"energyMax": -40,
-		"blockPower": 40,
-		"hAtk": 0.02,
-		"cAtk": 0.02
+		"abilityCooldown": 10,
+		"buffs":[3]
 	},
 	"upgrade":{
 		"energyMax": 5,
@@ -142,8 +141,8 @@
 	"prereq": [],
 	"base": {
 		"energyUsage": 35,
-		"buffs":[0],
-		"abilityCooldown": 10
+		"abilityCooldown": 10,
+		"buffs":[0]
 	},
 	"upgrade": null
 },
@@ -328,11 +327,14 @@
 	"prereq": [],
 	"base": {
 		"energyUsage": 25,
-		"buffs":[1]
+		"buffs":[1],
+		"abilityCooldown": 20,
+		"duration": 5
 	},
 	"upgrade":{
 		"energyUsage": -2,
-		"duration": 2
+		"duration": 2,
+		"abilityCooldown": -2
 	}
 }
 ]

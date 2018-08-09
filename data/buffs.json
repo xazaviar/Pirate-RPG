@@ -7,7 +7,7 @@
 		"speed": 0.05,
 		"dodgeChance": 0.05
 	},
-	"duration": 20
+	"duration": 5
 },
 { 	"id": 1,
 	"name": "Break",
@@ -25,5 +25,15 @@
 		"stopMove": "all"
 	},
 	"duration": 5
+},
+{ 	"id": 3,
+	"name": "Boxer's Stance",
+	"type": "buff",
+	"stats":{
+		"blockPower": 40,
+		"hAtk": 0.02,
+		"cAtk": 0.02
+	},
+	"duration": -1
 }
 ]
